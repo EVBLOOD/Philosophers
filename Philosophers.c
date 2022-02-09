@@ -6,7 +6,7 @@
 /*   By: sakllam <sakllam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 19:45:46 by sakllam           #+#    #+#             */
-/*   Updated: 2022/02/09 16:33:50 by sakllam          ###   ########.fr       */
+/*   Updated: 2022/02/09 19:49:32 by sakllam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,15 +152,6 @@ int	ft_printf(char *str, pthread_mutex_t *ptr, int id, long time)
 	return (0);
 }
 
-// void	ft_usleep(long stop, long now)
-// {
-// 	long	end;
-
-// 	end = now + stop;
-// 	while (!(ft_timenow() >= end / 1000));
-// }
-
-
 void	ft_usleep(long stop, long now)
 {
 	long	end;
@@ -168,7 +159,7 @@ void	ft_usleep(long stop, long now)
 	end = now + stop;
 	while (!(ft_timenow() >= end / 1000))
 	{
-		usleep(1000);
+		usleep(500);
 	}
 	
 }
@@ -179,20 +170,14 @@ void	*ft_philoroutine(void *args)
 
 	x = args;
 	x->time_new = 0;
+	x->about->counter = 0;
+
 	pthread_mutex_lock(x->printf_ptr);
 	x->about->hsab++;
 	pthread_mutex_unlock(x->printf_ptr);
 	while (1)
-	{
 		if (x->about->hsab == x->about->numberofphilos)
-		{
-			pthread_mutex_lock(x->printf_ptr);
-			printf("start => %ld\n", x->about->hsab);
-			pthread_mutex_unlock(x->printf_ptr);
 			break;
-		}
-	}
-	x->cleanup = 0;
 	x->about->start = ft_timenow();
 	x->time_new = x->about->start;
 	if (!(x->philoid % 2))
@@ -205,12 +190,12 @@ void	*ft_philoroutine(void *args)
 		ft_printf(" has taken a fork\n", x->printf_ptr, x->philoid, ft_timenow() - x->about->start);
 		x->time_new = ft_timenow();
 		ft_printf(" is eating\n", x->printf_ptr, x->philoid, ft_timenow() - x->about->start);
-		// usleep(x->about->timetoeat);
 		ft_usleep(x->about->timetoeat,ft_timenowprime());
+		if (++x->nbtimeeating == x->about->nbtimeat)
+				x->about->counter++;
 		pthread_mutex_unlock(x->mutexleft);
 		pthread_mutex_unlock(&(x->mutexright));
 		ft_printf(" is sleeping\n", x->printf_ptr, x->philoid, ft_timenow() - x->about->start);
-		// usleep (x->about->timetosleep);
 		ft_usleep(x->about->timetosleep, ft_timenowprime());
 		ft_printf(" is thinking\n", x->printf_ptr, x->philoid, ft_timenow() - x->about->start);
 	}
@@ -347,6 +332,11 @@ int	main(int argc, char **argv)
 			{
 				// if (philos[i].alive)
 				// {
+					if (philos[i].about->counter == start->numberofphilos)
+					{
+						pthread_mutex_lock(philos[i].printf_ptr);
+						return (1);
+					}
 					start->time_corr = ft_timenow();
 					pthread_mutex_lock(philos[i].died_ptr);
 					if (start->time_corr > philos[i].time_new + philos[i].about->timetodie + philos[i].cleanup && philos[i].time_new)
