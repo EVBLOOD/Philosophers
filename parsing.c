@@ -6,7 +6,7 @@
 /*   By: sakllam <sakllam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 19:45:43 by sakllam           #+#    #+#             */
-/*   Updated: 2022/02/06 04:59:44 by sakllam          ###   ########.fr       */
+/*   Updated: 2022/02/10 10:33:06 by sakllam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	allnumbers(char	*data)
 	int	i;
 
 	i = 0;
-
 	if (data[i] == '-')
 		return (1);
 	while (data[i])
