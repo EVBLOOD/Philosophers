@@ -6,7 +6,7 @@
 /*   By: sakllam <sakllam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 19:45:49 by sakllam           #+#    #+#             */
-/*   Updated: 2022/02/10 10:58:27 by sakllam          ###   ########.fr       */
+/*   Updated: 2022/02/10 17:54:16 by sakllam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_philo
 	long			timeprintf;
 	long			t_n;
 	long			lanched;
-	pthread_t		idtread;
+	pthread_t		idpros;
 	pthread_mutex_t	printf;
 	pthread_mutex_t	*w_ptr;
 	pthread_mutex_t	died;

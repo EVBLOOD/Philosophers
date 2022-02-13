@@ -6,7 +6,7 @@
 /*   By: sakllam <sakllam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 10:35:40 by sakllam           #+#    #+#             */
-/*   Updated: 2022/02/10 11:00:28 by sakllam          ###   ########.fr       */
+/*   Updated: 2022/02/13 15:48:20 by sakllam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	ft_creatingthreads(t_philo *philos, t_data *st)
 	i = -1;
 	while (++i < st->numberofphilos)
 	{
-		if (pthread_create(&(philos[i].idtread),
+		if (pthread_create(&(philos[i].idpros),
 				NULL, &ft_philoroutine, (void *)&philos[i]))
 		{
 			printf ("error creating thread\n");
@@ -94,7 +94,7 @@ int	ft_creatingthreads(t_philo *philos, t_data *st)
 	}
 	i = -1;
 	while (++i < st->numberofphilos)
-		pthread_detach(philos[i].idtread);
+		pthread_detach(philos[i].idpros);
 	ft_checkdeath(philos, st);
 	ft_freeanddestroy(philos, st);
 	return (0);
