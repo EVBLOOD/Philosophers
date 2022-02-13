@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Philosophers.c                                     :+:      :+:    :+:   */
+/*   Philo_utils_4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sakllam <sakllam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/31 19:45:46 by sakllam           #+#    #+#             */
-/*   Updated: 2022/02/13 11:27:39 by sakllam          ###   ########.fr       */
+/*   Created: 2022/02/13 15:31:03 by sakllam           #+#    #+#             */
+/*   Updated: 2022/02/13 15:31:31 by sakllam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
-int	main(int argc, char **argv)
+void	ft_waitforbrothers(t_philo *x)
 {
-	t_data			*st;
-	t_philo			*philos;
-
-	if (argc >= 5 && argc <= 6)
-	{
-		st = ft_parsing(argc, argv);
-		if (!st)
-		{
-			printf ("Something in your inputs is wrong!\n");
-			return (1);
-		}
-		if (ft_getsted(st, &philos))
-		{
-			free (st);
-			return (1);
-		}
-		if (ft_lifecycle(philos, st))
-			return (1);
-	}
-	else
-		printf("Sorry but the number of parameters is not correct!\n");
+	sem_wait(x->bn->brothers);
+	x->bn->st = ft_tmnw();
+	pthread_create(&(x->listener),
+		NULL, &ft_watcher, (void *)x);
+	x->t_n = ft_tmnw();
 }

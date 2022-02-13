@@ -6,7 +6,7 @@
 /*   By: sakllam <sakllam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 19:45:43 by sakllam           #+#    #+#             */
-/*   Updated: 2022/02/10 10:33:06 by sakllam          ###   ########.fr       */
+/*   Updated: 2022/02/13 15:15:29 by sakllam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_data	*ft_parsing(int parnomber, char **parms)
 	else
 		ret->nbtimeat = -1;
 	ret->counter = 0;
-	ret->numberofphilos = ft_atoiprime(parms[1]);
+	ret->n_phi = ft_atoiprime(parms[1]);
 	ret->timetodie = ft_atoiprime(parms[2]);
 	ret->timetoeat = ft_atoiprime(parms[3]) * 1000;
 	ret->timetosleep = ft_atoiprime(parms[4]) * 1000;
