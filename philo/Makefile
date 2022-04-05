@@ -19,10 +19,10 @@ SRC =	Philosophers_utils_1.c\
 		Philosophers_utils_3.c\
 		Philosophers_utils_2.c\
 		ft_printf.c
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -lpthread
 all: $(NAME)
 $(NAME): $(INCLUDE) $(SRC:.c=.o)
-	cc $(CFLAGS) $(SRC) -I $(INCLUDE) -o $(NAME)
+	cc $(CFLAGS) $(SRC) -L $(INCLUDE) -o $(NAME)
 clean:
 	rm -f $(SRC:.c=.o)
 fclean: clean
